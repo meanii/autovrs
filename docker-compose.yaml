@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     
     environment:
-      - API_URL="https://api.demo.meanii.com/auto-vrs-engine/"
+      - API_URL="https://api.demo.meanii.dev/auto-vrs-engine/"
     
     ports:
       - 3000:3000
