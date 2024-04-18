@@ -8,7 +8,7 @@ class AutoVrsEngineUtils {
 
     constructor() {
         this.axios = axios.create({
-            baseURL: `http://0.0.0.0:4000/auto-vrs-engine/`,
+            baseURL: process.env.API_URL ?? `https://api.demo.meanii.com/auto-vrs-engine/`,
         })
     }
 
