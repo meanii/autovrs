@@ -1,0 +1,31 @@
+services:
+
+  # Frontend service, which is a React app
+  autovrs:
+    build:
+      context: autovrs
+      dockerfile: Dockerfile
+    
+    ports:
+      - 3000:3000
+  
+  # Backend service, which is a Node.js app
+  autovrs_engine:
+    build:
+      context: autovrs-engine
+      dockerfile: Dockerfile
+    
+    env_file:
+      - .env
+    
+    volumes:
+      - "./filestorage:/app/filestorage"
+    
+    ports:
+      - 4000:4000
+  
+  # MongoDB service
+  mongodb:
+    image: mongo
+    volumes:
+      - ./mongodb:/data/db

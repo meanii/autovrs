@@ -9,7 +9,7 @@ export default function XView({ params }: { params: { slug: string } }) {
     const url = atob(purl)
 
     return (
-        <div className="bg-white">
+        <div className="bg-black">
             <GLTFViwer url={url}></GLTFViwer>
         </div>
     );

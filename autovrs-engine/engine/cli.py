@@ -111,7 +111,6 @@ class Blender:
             raise ValueError('Invalid output format')
 
 
-
 # Initialize the Blender class
 blender = Blender(path=args.input)
 
