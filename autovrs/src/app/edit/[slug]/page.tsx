@@ -22,23 +22,21 @@ import { AutoVR } from "@/inerfaces/autovr.interface";
 import { autoVrsEngineUtils } from "@/lib/autovrs-engine.utils";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Loader2 } from "lucide-react"
 
 
 const FormSchema = z.object({
-
     _id: z.string(),
-
-    scale : z.preprocess((a) => parseInt(z.string().parse(a),10), z.number().min(0, 'Scale must be a positive number')),
-
+    scale: z.number().min(0, 'Scale must be a positive number'),
     position: z.object({
-        y: z.preprocess((a) => parseInt(z.string().parse(a),10), z.number().min(0, 'Y must be a positive number')),
-        x: z.preprocess((a) => parseInt(z.string().parse(a),10), z.number().min(0, 'X must be a positive number')),
-        z: z.preprocess((a) => parseInt(z.string().parse(a),10), z.number().min(0, 'Z must be a positive number'))
+        y: z.number().min(0, 'Y must be a positive number'),
+        x: z.number().min(0, 'X must be a positive number'),
+        z: z.number().min(0, 'Z must be a positive number')
     }),
-    subdivision: z.preprocess((a) => parseInt(z.string().parse(a),10), z.number().min(0, 'subdivision must be a positive number')),
-    unsubdivide: z.preprocess((a) => parseInt(z.string().parse(a),10), z.number().min(0, 'unsubdivide must be a positive number')),
-    export: z.enum([`glb`, `fbx`, `obj`, `usdz`] as const),
+    subdivision: z.number().min(0, 'Subdivision must be a positive number'),
+    unsubdivide: z.number().min(0, 'Unsubdivide must be a positive number'),
+    export: z.enum(['glb', 'fbx', 'obj', 'usdz'])
 })
 
 
@@ -51,7 +49,6 @@ export default function Edit({ params }: { params: { slug: string } }) {
     const [processedFile, setProcessedFile] = useState(null);
 
     const form = useForm<z.infer<typeof FormSchema>>({
-        resolver: zodResolver(FormSchema),
         defaultValues: {
             _id: ``,
             scale: 1,
@@ -237,11 +234,11 @@ export default function Edit({ params }: { params: { slug: string } }) {
                     <div className="flex flex-row gap-2">
                         {processedFile ?
                             <>
-                                <Button onClick={() => window.open(processedFile, '_blank')}>
+                                <Button type="button" onClick={() => window.open(processedFile, '_blank')}>
                                     Download
                                 </Button>
-                                <Button>
-                                    View
+                                <Button type="button">
+                                    <Link href={`/xview/${btoa(processedFile)}`}>View</Link>
                                 </Button>
                             </>
                             : <Button disabled={loading} type="submit">
